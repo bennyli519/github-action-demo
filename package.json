@@ -11,12 +11,12 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
+  "homepage": "https://bennyli519.github.io/github-action-demo/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "homepage": "https://bennyli519.github.io/github-action-demo"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

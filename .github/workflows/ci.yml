@@ -7,11 +7,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -27,11 +22,22 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@master
 
-      # Runs a single command using the runners shell
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.5
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: build
-          BUILD_SCRIPT: npm install && npm run build
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+
+        # 这里引用了别人写好的发布库，具体参数信息可以查阅上面的链接
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.0.0
+        with: 
+          branch: gh-pages
+          folder: build
+      # # Runs a single command using the runners shell
+      # - name: Build and Deploy
+      #   uses: JamesIves/github-pages-deploy-action@4.1.5
+      #   env:
+      #     ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      #     BRANCH: gh-pages
+      #     FOLDER: build
+      #     BUILD_SCRIPT: npm install && npm run build

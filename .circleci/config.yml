@@ -26,8 +26,8 @@ jobs:
           paths:
             - node_modules
       - run:
-          name:Jest Test
-          command:'npm run test'
+          name: Jest
+          command: "npm run test"
   build:
     docker:
       - image: circleci/node:10

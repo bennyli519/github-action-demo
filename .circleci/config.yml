@@ -33,6 +33,7 @@ jobs:
       - image: circleci/node:10
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    working_directory: ~/build
     steps:
       - checkout
       - run:
@@ -41,6 +42,15 @@ jobs:
       - run:
           name: Build
           command: 'npm run build'
+      - run:
+          name: Creating Dummy Artifacts
+          command: |
+            echo "my artifact file" > index.html;
+            mkdir /build;
+ 
+      - store_artifacts:
+          path: /build/index.html
+          destination: artifact-file
   test-deploy:
     docker:
       - image: circleci/node:10

@@ -5,22 +5,49 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
+  test:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: cimg/base:stable
+      - image: circleci/node:10
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: Install
+          command: "npm run install"
+      # 使用缓存
+      - restore_cache:
+          key: node-dependens # 这个key和save_cache的key相对应，表示使用的是这个key对应的缓存
+        # 设置缓存
+      - save_cache:
+          key: node-dependens
+          paths:
+            - node_modules
+      - run:
+          name:Jest Test
+          command:'npm run test'
+  build:
+    docker:
+      - image: circleci/node:10
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: "npm run install"
+      - run:
+          name:Build
+          command:'npm run build'
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   say-hello-workflow:
     jobs:
-      - say-hello
+      - test
+      - build:
+          requires:
+            - test

@@ -16,7 +16,7 @@ jobs:
       - checkout
       - run:
           name: Install
-          command: "npm run install"
+          command: "npm install"
       # 使用缓存
       - restore_cache:
           key: node-dependens # 这个key和save_cache的key相对应，表示使用的是这个key对应的缓存
@@ -37,7 +37,7 @@ jobs:
       - checkout
       - run:
           name: Install
-          command: "npm run install"
+          command: "npm install"
       - run:
           name:Build
           command:'npm run build'

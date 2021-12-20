@@ -53,7 +53,8 @@ jobs:
       - checkout
       - run:
           name: Deploy
-          command: "console.log('deploy to google market')"
+          command: | 
+            echo 'deploy to google market'
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

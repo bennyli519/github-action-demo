@@ -60,6 +60,17 @@ jobs:
           name: Deploy
           command: | 
             echo 'deploy to google market'
+  test1:
+    docker:
+      - image: circleci/node:10
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout
+      - run:
+          name: Deploy
+          command: | 
+            echo 'deploy to google market'
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -74,6 +85,9 @@ workflows:
           type: approval 
           requires:
             - build
+      - test1:
+          requires:
+            - hold
       - test-deploy:
           requires:
             - hold
